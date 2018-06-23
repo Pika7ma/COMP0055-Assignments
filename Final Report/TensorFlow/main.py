@@ -14,18 +14,21 @@ def main(*args, **kwargs):
   )
 
   with tf.Session(config=config) as sess:
-    run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
-    run_metadata = tf.RunMetadata()
+    # run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
+    # run_metadata = tf.RunMetadata()
     sess.run(tf.global_variables_initializer())
     res = sess.run(net)
     res = np.squeeze(res)
-    tl = timeline.Timeline(run_metadata.step_stats)
-    ctf = tl.generate_chrome_trace_format()
-    with open('timeline.json', 'w') as f:
-        f.write(ctf)
+    # tl = timeline.Timeline(run_metadata.step_stats)
+    # ctf = tl.generate_chrome_trace_format()
+    # with open('timeline.json', 'w') as f:
+    #     f.write(ctf)
 
   print(res)
 
 
 if __name__ == '__main__':
-  main(dim=4096, pool_sz=5, GPU_num=0)
+  start = time.time()
+  main(dim=1024, pool_sz=128, GPU_num=1)
+  end = time.time()
+  print(end - start)

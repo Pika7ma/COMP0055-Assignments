@@ -1,0 +1,22 @@
+force_backward: true
+input: "input_feat"
+input_shape {
+  dim: 1
+  dim: 1
+  dim: 1024
+  dim: 1024
+}
+
+layer { 
+  name: "mpc_pooling"
+  type: "Pooling"
+  bottom: "input_feat"
+  top: "output_feat"
+  pooling_param {
+    pool: MAX
+    kernel_size: 128
+    stride: 1
+    pad: 0
+  }
+}
+

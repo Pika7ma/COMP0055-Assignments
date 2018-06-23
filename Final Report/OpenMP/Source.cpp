@@ -17,7 +17,7 @@ float m_tmp[MAX_N][MAX_N - KN_SIZE + 1];
 float m_[MAX_N - KN_SIZE + 1][MAX_N - KN_SIZE + 1];
 
 void reset(const int n, const int kn_size, float m[][MAX_N], float m_[][MAX_N - KN_SIZE + 1]) {
-    //#pragma omp parallel for num_threads(num_threads)
+    #pragma omp parallel for num_threads(num_threads)
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             m[i][j] = (float)rand();
@@ -26,7 +26,7 @@ void reset(const int n, const int kn_size, float m[][MAX_N], float m_[][MAX_N - 
 }
 
 void max_pooling(const int n, const int kn_size, float m[][MAX_N], float m_[][MAX_N - KN_SIZE + 1]) {
-    //#pragma omp parallel for num_threads(NUM_THREADS)
+    #pragma omp parallel for num_threads(NUM_THREADS)
     for (int i = 0; i < n - kn_size + 1; ++i) {
         for (int j = 0; j < n - kn_size + 1; ++j) {
             float max_ = -FLT_MAX;
@@ -44,7 +44,7 @@ void max_pooling(const int n, const int kn_size, float m[][MAX_N], float m_[][MA
 
 // Our Method
 void max_pooling_(const int n, const int kn_size, float m[][MAX_N], float m_[][MAX_N - KN_SIZE + 1]) {
-    //#pragma omp parallel for num_threads(NUM_THREADS)
+    #pragma omp parallel for num_threads(NUM_THREADS)
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n - kn_size + 1; ++j) {
             float max_ = -FLT_MAX;
@@ -56,7 +56,7 @@ void max_pooling_(const int n, const int kn_size, float m[][MAX_N], float m_[][M
             m_tmp[i][j] = max_;
         }
     }
-    //#pragma omp parallel for num_threads(NUM_THREADS)
+    #pragma omp parallel for num_threads(NUM_THREADS)
     for (int i = 0; i < n - kn_size + 1; ++i) {
         for (int j = 0; j < n - kn_size + 1; ++j) {
             float max_ = -FLT_MAX;
